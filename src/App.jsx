@@ -1,56 +1,46 @@
-import "./App.css"
+import { useState } from "react";
+import "./css/App.css"
+import ArithmeticPanel from "./ArithmeticPanel"
+import NumPanel from "./NumPanel"
 
 function App() {
+  const [num1, setNum1] = useState("0");
+  const [num2, setNum2] = useState("0");
+  const [sign, setSign] = useState("+");
+  const [answer, setAnswer] = useState("0");
+
+  const calculate = () => {
+    let result = 0;
+    switch (sign) {
+      case "+":
+        result = parseInt(num1) + parseInt(num2);
+        break;
+      case "-":
+        result = parseInt(num1) - parseInt(num2);
+        break;
+      case "*":
+        result = parseInt(num1) * parseInt(num2);
+        break;
+      case "÷":
+        result = parseInt(num1) / parseInt(num2);
+        break;
+      default:
+        break;
+    }
+    return result;
+  };
 
   return (
     <div className="calculator">
-      <div className="panel">
-        <p>0</p>
-        <div className="numbers">
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>4</button>
-          <button>5</button>
-          <button>6</button>
-          <button>7</button>
-          <button>8</button>
-          <button>9</button>
-          <button>0</button>
-          <button>Clear</button>
-        </div>
-      </div>
+      <NumPanel num={num1} setNum={setNum1}/>
 
-      <div className="panel">
-        <p>+</p>
-        <div className="numbers">
-          <button>+</button>
-          <button>-</button>
-          <button>*</button>
-          <button>÷</button>
-        </div>
-      </div>
+      <ArithmeticPanel sign={sign} setSign={setSign}/>
 
-      <div className="panel">
-        <p>0</p>
-        <div className="numbers">
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>4</button>
-          <button>5</button>
-          <button>6</button>
-          <button>7</button>
-          <button>8</button>
-          <button>9</button>
-          <button>0</button>
-          <button>Clear</button>
-        </div>
-      </div>
+      <NumPanel num={num2} setNum={setNum2}/>
       <div className="panel answer">
-        <p>0</p>
+        <p>{answer}</p>
         <div>
-          <button>=</button>
+          <button onClick={() => setAnswer(calculate())}>=</button>
         </div>
       </div>
     </div>
